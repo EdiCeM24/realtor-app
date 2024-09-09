@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 
 export default function SignIn() {
+  const [showPassword, setShowPassword] = useState(false);
   const [ formData, setFormData ] = useState({
     email: '',
     password: '',
@@ -26,8 +27,10 @@ export default function SignIn() {
           <form className='p-8'>
              <input type="email" id="email" value={email} onChange={onChange} placeholder='Enter Your email address' className="w-full px-4 py-2 text-xl text-gray-700 bg-white border-gray-300 rounded transition ease-in-out"/>
 
-             <input type="password" id="password" value={password} onChange={onChange} placeholder='Enter your password' 
+            <div>
+              <input type="password" id="password" value={password} onChange={onChange} placeholder='Enter your password' 
               className="w-full px-4 py-2 text-xl text-gray-700 bg-white border-gray-300 rounded transition ease-in-out" />
+            </div>
           </form>
         </div>
       </div>
