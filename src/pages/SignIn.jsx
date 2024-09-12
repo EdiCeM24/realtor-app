@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
+import { Link } from 'react-router-dom';
+
 
 
 export default function SignIn() {
@@ -27,9 +30,26 @@ export default function SignIn() {
           <form className='p-8'>
              <input type="email" id="email" value={email} onChange={onChange} placeholder='Enter Your email address' className="w-full px-4 py-2 text-xl text-gray-700 bg-white border-gray-300 rounded transition ease-in-out"/>
 
-            <div>
-              <input type="password" id="password" value={password} onChange={onChange} placeholder='Enter your password' 
+            <div className='relative mt-4'>
+              <input type={showPassword ? 'text' : 'password'} id="password" value={password} onChange={onChange} placeholder='Enter your password' 
               className="w-full px-4 py-2 text-xl text-gray-700 bg-white border-gray-300 rounded transition ease-in-out" />
+              (/**
+               * ! is not working the code below.
+              **/)
+              {showPassword ? (
+                 <AiFillEyeInvisible className='absolute right-3 top-3 text-xl text-gray-700 cursor-pointer' onClick={() => setShowPassword((prevState) => !prevState)}/> 
+              ):( 
+                <AiFillEye className='absolute right-3 top-3 text-xl text-gray-700 cursor-pointer'/>
+              )}
+            </div>
+
+            <div className='flex justify-between items-center mt-6 whitespace-nowrap text-sm sm:text-lg'>
+                <p className='text-center text-gray-700'>Don't have an account? 
+                  <Link to="/sign-up"  className='text-yellow-800 font-bold hover:underline'>Register</Link>
+                </p>
+                <p>
+                  <Link to="/forgot-password">Forgot Password?</Link>
+                </p>
             </div>
           </form>
         </div>
