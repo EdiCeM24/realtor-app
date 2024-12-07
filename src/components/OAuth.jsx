@@ -21,7 +21,8 @@ export default function OAuth() {
                await setDoc(docRef, {
                 name: user.displayName,
                 email: user.email,
-                //number: user.phoneNumber,
+                
+                image: user.photoURL,
                 timestamp: serverTimestamp(),
                })
             }

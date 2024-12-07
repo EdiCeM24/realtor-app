@@ -8,6 +8,7 @@ import SignUp from "./pages/SignUp";
 import Header from "./components/Header";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Footer from "./pages/Footer";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/sign-up" element={<SignUp />} />
          </Routes>
+         <Footer/>
       </Router>
       <ToastContainer
         position="top-right"

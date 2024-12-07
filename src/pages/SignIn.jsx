@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import OAuth from '../components/OAuth';
-
-
+import { signInWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { toast } from 'react-toastify';
 
 
 export default function SignIn() {
@@ -13,6 +14,8 @@ export default function SignIn() {
     password: '',
   });
   const { email, password } = formData;
+  const navigate = useNavigate();
+
   function onChange(e) {
     //console.log(e.target.value);
     setFormData((prevState) => ({
@@ -20,8 +23,22 @@ export default function SignIn() {
       [e.target.id]: e.target.value,
     }))
   }
- 
-  return (
+
+  async function onSubmit(e) {
+    e.preventDefault();
+
+    try {
+      const auth = getAuth()
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      if(userCredential.user) {
+        navigate("/");
+      }
+      
+    } catch (error) {
+    toast.error('Bad user credentials, please try again.')
+     }
+  }
+  return (    
     <section>
        <h1 className="text-3xl text-center text-yellow-800 mt-6 font-bold">Sign In</h1>
     
@@ -30,8 +47,8 @@ export default function SignIn() {
            <img src="https://images.unsplash.com/flagged/photo-1564767609342-620cb19b2357?q=80&w=1373&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Key" className="w-full rounded-2xl" />
         </div>
         <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-20">
-          <form className='p-8'>
-             <input type="email" id="email" value={email} onChange={onChange} placeholder='Enter Your email address' className="w-full px-4 py-2 text-xl text-gray-700 bg-white border-gray-300 rounded transition ease-in-out"/>
+          <form onSubmit={onSubmit} className='p-8'>
+          <input type="email" id="email" value={email} onChange={onChange} placeholder='Enter Your email address' className="w-full px-4 py-2 text-xl text-gray-700 bg-white border-gray-300 rounded transition ease-in-out"/>
 
             <div className='relative mt-4'>
               <input type={showPassword ? 'text' : 'password'} id="password" value={password} onChange={onChange} placeholder='Enter your password' 
@@ -40,7 +57,7 @@ export default function SignIn() {
               {showPassword ? (
                  <AiFillEyeInvisible className='absolute right-3 top-3 text-xl text-gray-700 cursor-pointer' onClick={() => setShowPassword((prevState) => !prevState)}/> 
               ):( 
-                <AiFillEye className='absolute right-3 top-3 text-xl text-gray-700 cursor-pointer'/>
+                <AiFillEye className='absolute right-3 top-3 text-xl text-gray-700 cursor-pointer' onClick={() => setShowPassword((prevState) => !prevState)}/>
               )}
             </div>
 

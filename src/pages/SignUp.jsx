@@ -39,7 +39,7 @@ export default function SignUp() {
       
       const user = userCredential.user;
       // console.log(user);
-      const formDataCopy = {...formData};
+      const formDataCopy = { ...formData };
       delete formDataCopy.password;
       formDataCopy.timestamp = serverTimestamp();
 
@@ -72,7 +72,7 @@ export default function SignUp() {
               {showPassword ? (
                  <AiFillEyeInvisible className='absolute right-3 top-3 text-xl text-gray-700 cursor-pointer' onClick={() => setShowPassword((prevState) => !prevState)}/> 
               ):( 
-                <AiFillEye className='absolute right-3 top-3 text-xl text-gray-700 cursor-pointer'/>
+                <AiFillEye className='absolute right-3 top-3 text-xl text-gray-700 cursor-pointer' onClick={() => setShowPassword((prevState) => !prevState)}/>
               )}
             </div>
 
